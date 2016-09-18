@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.sjzjava.dao.UsersSearchAction"> 
+	<!-- 部分匹配检索 --> 
+    <select id="partSearchUsersSelect" parameterType="com.sjzjava.dto.UsersSearchDto" resultType="com.sjzjava.dto.UserDto">
+    	<!-- MySql 
+        select * from t_user where deleteflag = 0 order by userid asc limit #{limitFirst},5
+        -->
+        
+        <!-- Oracle -->
+        select * from (  
+       
+           select row_.*, rownum rownum_ from (  
+             
+                select * from t_user where deleteflag = 0 and ${columnName} like CONCAT(CONCAT('%', #{searchName}), '%') order by userid
+                 
+            ) row_ where rownum &lt;= #{limitFirst} + 5
+             
+        ) where rownum_ > #{limitFirst}
+        
+    </select>  
+    <select id="partSearchUsersCount" parameterType="com.sjzjava.dto.UsersSearchDto" resultType="int">
+        select count(*) from t_user where deleteflag = 0 and ${columnName} like CONCAT(CONCAT('%', #{searchName}), '%')
+    </select>
+    
+    <!-- 完全匹配检索 --> 
+    <select id="wholeSearchUsersSelect" parameterType="com.sjzjava.dto.UsersSearchDto" resultType="com.sjzjava.dto.UserDto">
+    	<!-- MySql 
+        select * from t_user where deleteflag = 0 order by userid asc limit #{limitFirst},5
+        -->
+        
+        <!-- Oracle -->
+        select * from (  
+       
+           select row_.*, rownum rownum_ from (  
+             
+                select * from t_user where deleteflag = 0 and ${columnName} = #{searchName} order by userid
+                 
+            ) row_ where rownum &lt;= #{limitFirst} + 5
+             
+        ) where rownum_ > #{limitFirst}
+        
+    </select>  
+    <select id="wholeSearchUsersCount" parameterType="com.sjzjava.dto.UsersSearchDto" resultType="int">
+        select count(*) from t_user where deleteflag = 0 and ${columnName} = #{searchName}
+    </select>
+    
+</mapper>

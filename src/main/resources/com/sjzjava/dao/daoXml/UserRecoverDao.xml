@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.sjzjava.dao.UserRecoverAction">  
+    <update id="userRecover" parameterType="String">
+        update t_user set deleteflag = 0 where userid = #{userId}
+    </update>
+</mapper>

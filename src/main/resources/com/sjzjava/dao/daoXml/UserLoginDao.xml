@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.sjzjava.dao.UserLogin">  
+    <select id="loginCheck" parameterType="com.sjzjava.dto.AdminDto" 
+        resultType="int">
+        select count(*) from users where username = #{userName} and password = #{password}
+    </select>
+    
+    <select id="usersSelect" parameterType="com.sjzjava.dto.AdminDto" resultType="com.sjzjava.dto.UserDto">
+    	<!-- MySql 
+        select * from t_user where deleteflag = 0 order by userid asc limit #{limitFirst},5
+        -->
+        
+        <!-- Oracle -->
+        select * from (  
+       
+           select row_.*, rownum rownum_ from (  
+             
+                select * from t_user where deleteflag = 0 order by userid
+                 
+            ) row_ where rownum &lt;= #{limitFirst} + 5
+             
+        ) where rownum_ > #{limitFirst}
+        
+    </select>
+    
+    <select id="usersCount"  resultType="int">
+        select count(*) from t_user where deleteflag = 0
+    </select>
+</mapper>

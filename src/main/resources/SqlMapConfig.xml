@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC" />
+            <!-- 配置数据库连接信息 -->
+            <dataSource type="POOLED">
+            <!-- MySql  
+                <property name="driver" value="com.mysql.jdbc.Driver" />
+                <property name="url" value="jdbc:mysql://localhost/loet" />
+                <property name="username" value="root" />
+                <property name="password" value="123456" />
+            -->
+            
+            <!-- Oracle -->              
+                <property name="driver" value="oracle.jdbc.driver.OracleDriver" />
+                <property name="url" value="jdbc:oracle:thin:@192.168.100.20:1521/orcl" />
+                <property name="username" value="loet" />
+                <property name="password" value="loet" />
+                
+                
+            </dataSource>
+        </environment>
+    </environments>
+    
+    <mappers>
+    	<!-- MySql 
+    	<mapper resource="com/sjzjava/dao/daoXml/MySqlUserLoginDao.xml"/>
+    	<mapper resource="com/sjzjava/dao/daoXml/MySqlRecoverUserDao.xml"/>
+    	<mapper resource="com/sjzjava/dao/daoXml/MySqlUsersSearchDao.xml"/>
+    	-->
+        
+        <!-- Oracle -->
+    	<mapper resource="/com/sjzjava/dao/daoXml/UserLoginDao.xml"/>
+    	<mapper resource="/com/sjzjava/dao/daoXml/RecoverUserDao.xml"/>
+    	<mapper resource="/com/sjzjava/dao/daoXml/UsersSearchDao.xml"/>
+    	
+        
+        <mapper resource="/com/sjzjava/dao/daoXml/UserModifyDao.xml"/>
+        <mapper resource="/com/sjzjava/dao/daoXml/UserDeleteDao.xml"/>
+        <mapper resource="/com/sjzjava/dao/daoXml/UserAddDao.xml"/>        
+        <mapper resource="/com/sjzjava/dao/daoXml/UserRecoverDao.xml"/>        
+        <mapper resource="/com/sjzjava/dao/daoXml/UserExistCheckDao.xml"/>
+    </mappers>
+    
+</configuration>

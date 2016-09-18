@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.sjzjava.dao.UserModifyAction">
+
+    <select id="userSelect" parameterType="String" resultType="com.sjzjava.dto.UserDto">
+        select * from t_user where deleteflag = 0 and userid = #{userId}
+    </select>
+      
+    <update id="userModify" parameterType="com.sjzjava.dto.UserDto">
+        update t_user 
+        set username = #{userName},
+            age = #{age},
+            birthday = #{birthday},
+            address =  #{address}
+           where userid = #{userId}
+    </update>
+</mapper>
